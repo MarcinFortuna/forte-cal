@@ -1,5 +1,12 @@
-export default function Home() {
-    return (
-        <h1 className="textcenter">ForteCal app</h1>
-    );
+import {currentUser} from "@clerk/nextjs/server";
+import {redirect} from "next/navigation";
+import LandingPage from "@/components/LandingPage";
+
+export default async function Home() {
+
+    const user = await currentUser();
+
+    if (!user) return <LandingPage/>;
+    return redirect("/events");
+
 }
