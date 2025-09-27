@@ -9,8 +9,12 @@ import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import {Switch} from "@/components/ui/switch";
 import {
-    AlertDialog, AlertDialogAction, AlertDialogCancel,
-    AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger
@@ -109,7 +113,7 @@ export default function EventForm(props: EventFormProps) {
                     {event && <AlertDialog>
                         <AlertDialogTrigger asChild>
                             <Button className="cursor-pointer hover:scale-105" variant="destructive"
-                                disabled={isDeletePending || form.formState.isSubmitting}
+                                    disabled={isDeletePending || form.formState.isSubmitting}
                             >
                                 Delete
                             </Button>
@@ -124,32 +128,32 @@ export default function EventForm(props: EventFormProps) {
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction disabled={isDeletePending || form.formState.isSubmitting}
-                                    className="bg-red-500 hover:bg-red-700 cursor-pointer"
+                                                   className="bg-red-500 hover:bg-red-700 cursor-pointer"
                                                    onClick={() => {
-                                                   startDeleteTransition(async () => {
-                                                       try {
-                                                           await deleteEvent(event.id);
-                                                       } catch(err: any) {
-                                                           form.setError("root", {
-                                                               message: `There was an error deleting your event: ${err.message}`
-                                                           });
-                                                       }
-                                                   })
+                                                       startDeleteTransition(async () => {
+                                                           try {
+                                                               await deleteEvent(event.id);
+                                                           } catch (err: any) {
+                                                               form.setError("root", {
+                                                                   message: `There was an error deleting your event: ${err.message}`
+                                                               });
+                                                           }
+                                                       })
                                                    }}
                                 >
-
+                                    Delete
                                 </AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
                     }
                     <Button type="button" asChild variant="outline"
-                        disabled={isDeletePending || form.formState.isSubmitting}
+                            disabled={isDeletePending || form.formState.isSubmitting}
                     >
                         <Link href="/events">Cancel</Link>
                     </Button>
                     <Button disabled={isDeletePending || form.formState.isSubmitting} type="submit"
-                        className="cursor-pointer hover:scale-105 bg-blue-400 hover:bg-blue-600"
+                            className="cursor-pointer hover:scale-105 bg-blue-400 hover:bg-blue-600"
                     >Save</Button>
                 </div>
             </form>
