@@ -22,6 +22,7 @@ import {
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {useTransition} from "react";
+import {createEvent} from "@/server/actions/events";
 
 type TEvent = {
     id: string;
@@ -51,6 +52,17 @@ export default function EventForm(props: EventFormProps) {
     });
 
     const [isDeletePending, startDeleteTransition] = useTransition();
+
+    async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+        const action = event == null ? createEvent : updateEvent.bind(null, event.id);
+        try {
+            await action(values);
+        } catch (err: any) {
+            form.setError("root", {
+                message: `There was an error saving your event: ${err.message}`
+            })
+        }
+    }
 
     return (
         <Form {...form}>
