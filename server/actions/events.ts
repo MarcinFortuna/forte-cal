@@ -5,7 +5,7 @@ import {auth} from "@clerk/nextjs/server";
 import {db} from "@/drizzle/db";
 import {eventTable} from "@/drizzle/schema";
 import {revalidatePath} from "next/cache";
-import {redirect} from "next/navigation";
+// import {redirect} from "next/navigation";
 import {and, eq} from "drizzle-orm";
 
 export async function createEvent(
@@ -22,7 +22,7 @@ export async function createEvent(
         throw new Error(`Failed to create event: ${err.message || err}`);
     } finally {
         revalidatePath("/events");
-        redirect("/events");
+        // redirect("/events");
     }
 }
 
@@ -48,7 +48,7 @@ export async function updateEvent(
         throw new Error(`Failed to update event: ${err.message || err}`);
     } finally {
         revalidatePath("/events");
-        redirect("/events");
+        // redirect("/events");
     }
 }
 
@@ -69,6 +69,6 @@ export async function deleteEvent(id: string): Promise<void> {
         throw new Error(`Failed to update event: ${err.message || err}`);
     } finally {
         revalidatePath("/events");
-        redirect("/events");
+        // redirect("/events");
     }
 }
