@@ -72,3 +72,14 @@ export async function deleteEvent(id: string): Promise<void> {
         // redirect("/events");
     }
 }
+
+type EventRow = typeof eventTable.$inferSelect;
+
+export async function getEvents(clerkUserId: string): Promise<EventRow[]> {
+    const events = db.query.eventTable.findMany({
+        where: ({ clerkUserId: userIdCol }, {eq}) => eq(userIdCol, clerkUserId),
+        orderBy: ({name}, {asc, sql}) => asc(sql`lower(${name})`),
+    });
+
+    return events;
+}
