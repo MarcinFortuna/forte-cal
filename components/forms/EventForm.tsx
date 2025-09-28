@@ -22,7 +22,8 @@ import {
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {useTransition} from "react";
-import {createEvent} from "@/server/actions/events";
+import {createEvent, deleteEvent, updateEvent} from "@/server/actions/events";
+import {useRouter} from "next/navigation";
 
 type TEvent = {
     id: string;
@@ -34,10 +35,12 @@ type TEvent = {
 
 interface EventFormProps {
     event?: TEvent;
-};
+}
 
 export default function EventForm(props: EventFormProps) {
     const {event} = props;
+
+    const router = useRouter();
 
     const defaultEvent: Partial<TEvent> = {
         isActive: true,
@@ -57,10 +60,11 @@ export default function EventForm(props: EventFormProps) {
         const action = event == null ? createEvent : updateEvent.bind(null, event.id);
         try {
             await action(values);
+            router.push("/events");
         } catch (err: any) {
             form.setError("root", {
                 message: `There was an error saving your event: ${err.message}`
-            })
+            });
         }
     }
 
@@ -106,12 +110,12 @@ export default function EventForm(props: EventFormProps) {
                         <FormMessage/>
                     </FormItem>
                 }}/>
-                <FormField control={form.control} name="description" render={({field}) => {
+                <FormField control={form.control} name="isActive" render={({field}) => {
                     return <FormItem>
                         <FormLabel>Is active</FormLabel>
                         <div className="flex items-center gap-2">
                             <FormControl>
-                                <Switch checked={!!field.value} onCheckedChange={field.onChange}/>
+                                <Switch checked={field.value} onCheckedChange={field.onChange}/>
                             </FormControl>
                             <FormLabel>Active</FormLabel>
                         </div>
