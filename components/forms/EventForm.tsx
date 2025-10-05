@@ -149,6 +149,7 @@ export default function EventForm(props: EventFormProps) {
                                                        startDeleteTransition(async () => {
                                                            try {
                                                                await deleteEvent(event.id);
+                                                               router.push("/events");
                                                            } catch (err: any) {
                                                                form.setError("root", {
                                                                    message: `There was an error deleting your event: ${err.message}`
