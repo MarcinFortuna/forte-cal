@@ -1,9 +1,9 @@
 export function formatEventDescription(durationInMinutes: number): string {
-    const hours = Math.floor(durationInMinutes / 60);
-    const minutes = durationInMinutes % 60;
+    const hours: number = Math.floor(durationInMinutes / 60);
+    const minutes: number = durationInMinutes % 60;
 
-    const minutesString = `${minutes} ${minutes > 1 ? "mins" : "min"}`;
-    const hoursString = `${hours} ${hours > 1 ? "hours" : "hour"}`;
+    const minutesString: string = `${minutes} ${minutes > 1 ? "mins" : "min"}`;
+    const hoursString: string = `${hours} ${hours > 1 ? "hours" : "hour"}`;
 
     if (hours === 0) return minutesString;
     if (minutes === 0) return hoursString;
